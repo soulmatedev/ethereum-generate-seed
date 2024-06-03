@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
-const FileStorage = artifacts.require("GenerateSeed.sol");
+const GenerateSeed = artifacts.require("GenerateSeed");
 
 module.exports = function (deployer) {
-	deployer.deploy(FileStorage);
+	deployer.deploy(GenerateSeed);
 };

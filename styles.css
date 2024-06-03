@@ -155,3 +155,26 @@ ol {
     width: 100%;
     text-align: center;
 }
+
+.address-details {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 500px;
+    margin-right: 200px;
+}
+
+.address-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.address-details p:first-child {
+    margin-top: 0;
+}
+
+.address-details p:last-child {
+    margin-bottom: 0;
+}

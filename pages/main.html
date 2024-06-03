@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Загрузите любой файл</title>
 	<script src="../web3.min.js"></script>
-	<script src="../app.js" defer></script>
 	<link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -15,28 +14,126 @@
 			Создайте свой существующий кошелек или используйте его.
 		</div>
 		<h4 style="margin-bottom: 6px">Введите сид (12 слов)</h4>
-		<input class="seed" type="text" style="margin-bottom: 20px">
+		<input id="generated-seed-input" class="seed" type="text" style="margin-bottom: 20px">
 		<div class="generate-seed-button">
-			<button>Сгенерировать детали</button>
-			<button>Сгенерировать новый сид</button>
+			<button id="generate-details">Сгенерировать детали</button>
+			<button id="generate-seed">Сгенерировать новый сид</button>
 		</div>
 	</div>
 	<div style="margin-bottom: 30px">
 		<h2 style="margin-bottom: 40px">Адрес, Ключи и Балансы этих сидов</h2>
-		<h2>Отправить эфир</h2>
+		<h2>Отправка эфира</h2>
 	</div>
 	<div class="send-eth">
 		<h4 style="margin-bottom: 6px">С адреса</h4>
-		<input class="seed" type="text" style="margin-bottom: 20px">
+		<input id="from-address" class="seed" type="text" style="margin-bottom: 20px">
 
 		<h4 style="margin-bottom: 6px">На адреса</h4>
-		<input class="seed" type="text" style="margin-bottom: 20px">
+		<input id="to-address" class="seed" type="text" style="margin-bottom: 20px">
 
 		<h4 style="margin-bottom: 6px">Количество эфира</h4>
-		<input class="seed" type="text" style="margin-bottom: 20px">
+		<input id="amount" class="seed" type="text" style="margin-bottom: 20px">
 
-		<button class="send-eth-button">Отправить эфир</button>
+		<button id="send-eth-button" class="send-eth-button">Отправить эфир</button>
 	</div>
 </div>
+<script src="../app.js" defer></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const generateSeedButton = document.getElementById('generate-seed');
+		const generatedSeedInputElement = document.getElementById('generated-seed-input');
+			const generateDetailsButton = document.getElementById('generate-details');
+		const sendEthButton = document.getElementById('send-eth-button');
+		const fromAddressInput = document.getElementById('from-address');
+		const toAddressInput = document.getElementById('to-address');
+		const amountInput = document.getElementById('amount');
+
+			// Функция для генерации 12 рандомных слов
+			function generateRandomSeed() {
+				const wordList = [
+					"eat", "shine", "breakfast", "lunch", "sun", "moon",
+					"star", "ship", "meat", "apple", "fruit", "room",
+					"talent", "man", "woman"
+				];
+				const seed = [];
+
+				for (let i = 0; i < 12; i++) {
+					const randomIndex = Math.floor(Math.random() * wordList.length);
+					seed.push(wordList[randomIndex]);
+				}
+
+				return seed.join(' ');
+			}
+
+			generateSeedButton.addEventListener('click', function() {
+				const generatedSeed = generateRandomSeed();
+				generatedSeedInputElement.value = generatedSeed;
+			});
+
+			generateDetailsButton.addEventListener('click', function() { // Здесь изменено
+				const numAddresses = 2; // Количество адресов для вывода
+				const accounts = [];
+				for (let i = 0; i < numAddresses; i++) {
+					const account = web3.eth.accounts.create();
+					accounts.push(account);
+				}
+
+				// Создание и добавление элементов для вывода информации
+				const detailsContainer = document.createElement('div');
+				detailsContainer.className = 'address-details';
+				document.body.appendChild(detailsContainer);
+
+				for (let i = 0; i < numAddresses; i++) {
+					const addressElement = document.createElement('p');
+					addressElement.textContent = `Адрес ${i + 1}: ${accounts[i].address}`;
+					detailsContainer.appendChild(addressElement);
+
+					const privateKeyElement = document.createElement('p');
+					privateKeyElement.textContent = `Приватный ключ ${i + 1}: ${accounts[i].privateKey}`;
+					detailsContainer.appendChild(privateKeyElement);
+				}
+			});
+
+
+			sendEthButton.addEventListener('click', async function() {
+				const fromAddress = fromAddressInput.value;
+				const toAddress = toAddressInput.value;
+				const amount = amountInput.value;
+
+				if (web3.utils.isAddress(fromAddress) && web3.utils.isAddress(toAddress) && !isNaN(amount)) {
+					try {
+						const balance = await web3.eth.getBalance(fromAddress);
+						const balanceInEth = web3.utils.fromWei(balance, 'ether');
+
+						if (parseFloat(balanceInEth) < parseFloat(amount)) {
+							alert('Недостаточно средств для отправки эфира');
+							return;
+						}
+
+						await web3.eth.sendTransaction({
+							from: fromAddress,
+							to: toAddress,
+							value: web3.utils.toWei(amount, 'ether'),
+							gas: 3000000
+						});
+						alert('Эфир успешно отправлен');
+
+					  fromAddressInput.value = '';
+					  toAddressInput.value = '';
+					  amountInput.value = '';
+
+					  // Генерация нового сида
+					  generatedSeedInputElement.value = '';
+					  generateRandomSeed();
+					} catch (error) {
+						console.error('Ошибка при отправке эфира:', error);
+						alert('Ошибка при отправке эфира');
+					}
+				} else {
+					alert('Пожалуйста, введите правильные адреса и количество эфира');
+				}
+			});
+	});
+</script>
 </body>
 </html>
