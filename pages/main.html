@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Загрузите любой файл</title>
+	<script src="../web3.min.js"></script>
+	<script src="../app.js" defer></script>
+	<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="container">
+	<div class="generate-seed">
+		<div class="alert" id="message" style="margin-bottom: 20px">
+			Создайте свой существующий кошелек или используйте его.
+		</div>
+		<h4 style="margin-bottom: 6px">Введите сид (12 слов)</h4>
+		<input class="seed" type="text" style="margin-bottom: 20px">
+		<div class="generate-seed-button">
+			<button>Сгенерировать детали</button>
+			<button>Сгенерировать новый сид</button>
+		</div>
+	</div>
+	<div style="margin-bottom: 30px">
+		<h2 style="margin-bottom: 40px">Адрес, Ключи и Балансы этих сидов</h2>
+		<h2>Отправить эфир</h2>
+	</div>
+	<div class="send-eth">
+		<h4 style="margin-bottom: 6px">С адреса</h4>
+		<input class="seed" type="text" style="margin-bottom: 20px">
+
+		<h4 style="margin-bottom: 6px">На адреса</h4>
+		<input class="seed" type="text" style="margin-bottom: 20px">
+
+		<h4 style="margin-bottom: 6px">Количество эфира</h4>
+		<input class="seed" type="text" style="margin-bottom: 20px">
+
+		<button class="send-eth-button">Отправить эфир</button>
+	</div>
+</div>
+</body>
+</html>

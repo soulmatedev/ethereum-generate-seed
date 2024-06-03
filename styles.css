@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+    margin: 0;
+    font: inherit;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h4 {
+    font-weight: normal;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.custom-file {
+    display: grid;
+    grid-template-columns: 0.75fr 0.25fr;
+}
+
+.customfileinput {
+    display: none;
+}
+
+.custom-file-control {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #b9b9b9;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.form-control {
+    width: calc(100% - 20px);
+    padding: 10px 20px;
+    height: 40px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid #b9b9b9;
+}
+
+.form-control:focus {
+    border: 1px solid #1550ce;
+}
+
+::placeholder {
+    font-size: 14px;
+}
+
+button {
+    width: calc(100% - 20px);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background: #1550ce;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+button:hover {
+    background: #0943be;
+}
+
+.alert {
+    padding: 10px;
+    background-color: #e9ecef;
+    border: 1px solid #b8daff;
+    border-radius: 4px;
+    color: #0c5460;
+    text-align: left;
+}
+
+ol {
+    text-align: center;
+}
+
+.generate-seed {
+    display: grid;
+    margin-bottom: 40px;
+}
+
+.send-eth {
+    display: grid;
+}
+
+.generate-seed-button {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.seed {
+    padding: 12px;
+    display: grid;
+    justify-content: center;
+    height: 40px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+}
+
+.send-eth-button {
+    width: 100%;
+    text-align: center;
+}
